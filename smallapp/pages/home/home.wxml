@@ -1,0 +1,84 @@
+<!--pages/home/home.wxml-->
+<text>pages/home/home.wxml</text>
+<view>
+  <text>{{word}}</text>
+  <view data-id="{{id}}">
+    {{flag?"今天也要把这个页面搞好哦":"不搞了不搞了 睡觉睡觉"}}
+  </view>
+  <view bindtap="countADD" data-word="{{word}}">{{count}}</view>
+  <switch bindtap="changeflag" checked="{{!flag}}"></switch>
+  <view wx:if="{{!flag}}">
+     <image class="img" src="{{imgUrl}}" alt="网络出错"/>
+  </view>
+  <view wx:else>
+      wx:if的显示隐藏是渲染和不渲染的区别
+  </view>
+  <view wx:for="{{arr}}" wx:key="index">
+      {{index}} ------ {{item.message}}
+  </view>
+
+
+  <view hidden="{{!flag}}">
+      <view wx:for="{{num}}" wx:for-item="i" wx:key="index">
+          <view wx:for="{{num}}" wx:for-item="j" wx:for-index="xb" wx:key="xb">
+              <view wx:if="{{i<=j}}">
+                  {{i}} * {{j}}  =  {{i*j}}
+              </view>
+          </view>
+      </view>
+  </view>
+
+  <view wx:if="{{isLogin}}">
+      <view>你好！epic7 </view>
+  </view>
+  <view wx:else>
+      <view>你还没有登录呢</view>
+  </view>
+
+  <!--通过自定义属性来传参数-->
+  <view>
+      <button data-msg="wuhan" bindtap="login" id="btn" type="primary">前往登录</button>   
+  </view>
+
+  <view>
+      <input placeholder="请输入手机号" bindinput="getphone"></input>
+  </view>
+
+  <!--bind事件不会阻止冒泡事件向上冒泡,catch事件绑定可以阻止事件向上冒泡-->
+  <view bindtap="parent">
+    <view bindtap="childOne">
+        AAAAAAAAAAA
+    </view>
+    <view catchtap="childTwo">
+        BBBBBBBBBBB
+    </view>
+  </view>
+
+  <view class="h-box">
+  
+  </view>
+
+  <!--组件可以在页面内写，也可以在页面外写，但是要引入-->
+  <template name="users">
+      <view>
+        <view>users - users</view>
+        <view>names - {{names}}</view>
+        <view>age - {{age}}</view>
+      </view>
+  </template>
+
+  <template is="users" data="{{names:'第七史诗',age:2}}"/>
+  <template is="users" data="{{...users}}"/>
+
+
+  <import src="../../tpls/like.wxml"/>
+  <template is="like" data="{{liker:'隔壁老王',count:999}}"/>
+  <template is="like" data="{{...liker}}"/>
+
+  <button bindtap="openModal" type="warn">打开 modal</button>
+
+  <button bindtap="openAction" type="warn">上传头像</button>
+
+  <import src="../../tpls/login.wxml"/>
+  <template is="login" data="{{...loginlist}}"></template>
+</view>

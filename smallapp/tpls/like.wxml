@@ -1,0 +1,7 @@
+<template name="like">
+  <view>
+    <view>点赞系统</view>
+    <view>是谁点赞的呢？{{liker}}</view>
+    <view>点赞了多少次呢？{{count}}</view>
+  </view>
+</template>
